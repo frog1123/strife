@@ -17,6 +17,8 @@ const SetupPage: NextPage = async () => {
     }
   });
 
+  // console.log(server);
+
   if (server) {
     return redirect(`servers/${server.id}`);
   }
