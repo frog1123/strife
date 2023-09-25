@@ -21,6 +21,7 @@ const SetupPage: NextPage = async () => {
     return redirect(`servers/${server.id}`);
   }
 
+  // if no server create
   return <InitialModal />;
 };
 
