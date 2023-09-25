@@ -1,15 +1,14 @@
 import { db } from '@/lib/db';
-import { currentUser } from '@clerk/nextjs';
+import { currentUser } from '@/lib/current-user';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
 import { NavigationAction } from '@/components/navigation/navigation-action';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { NavigationItem } from '@/components/navigation/navigation-item';
-import { initialUser } from '@/lib/inital-user';
 
 export const NavigationSidebar: FC = async () => {
-  const user = await initialUser();
+  const user = await currentUser();
 
   if (!user) {
     return redirect('/');
