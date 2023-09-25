@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
 import { initialUser } from '@/lib/inital-user';
 import { db } from '@/lib/db';
-import { redirect} from 'next/navigation'
+import { redirect } from 'next/navigation';
+import { InitialModal } from '@/components/modals/inital-modal';
 
 const SetupPage: NextPage = async () => {
   const user = await initialUser();
@@ -17,10 +18,10 @@ const SetupPage: NextPage = async () => {
   });
 
   if (server) {
-    return redirect(`servers/${server.id}`)
+    return redirect(`servers/${server.id}`);
   }
 
-  return <div>Create a server</div>;
+  return <InitialModal />;
 };
 
 export default SetupPage;
