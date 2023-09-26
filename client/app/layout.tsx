@@ -19,10 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang='en' suppressHydrationWarning>
         <body className={cn(font.className, 'bgi-white dark:bg-[#313338]')}>
           <ThemeProvider attribute='class' defaultTheme='dark' enableSystem storageKey='discord-theme'>
-            <div>
-              <ModalProvider />
-            </div>
-
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </body>
