@@ -3,6 +3,7 @@ import { currentUser } from '@clerk/nextjs';
 import { ChannelType } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
+import { ServerHeader } from '@/components/server/server-header';
 
 interface ServerSidebarProps {
   serverId: string;
@@ -47,8 +48,6 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
   }
 
   const role = server.members.find(member => member.userId === user.id)?.role;
-
-  // TODO
 
   return (
     <div className='flex flex-col h-full text-primary w-full dark:bg-[#2b2d31] bg-[#f2f3f5]'>
