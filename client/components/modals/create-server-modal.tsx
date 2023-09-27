@@ -44,6 +44,7 @@ export const CreateServerModal: FC = () => {
 
       form.reset();
       router.refresh();
+      onClose();
     } catch (err) {
       console.log(err);
     }
