@@ -10,7 +10,8 @@ commands:
     "start": "next start",
     "lint": "next lint",
     "prisma": "prisma generate --schema prisma/schema.prisma && prisma db push",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "migrate-reset": "prisma migrate reset"
 ```
 
 env setup:

@@ -18,8 +18,6 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
-  console.log(isModerator);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='focus:outline-none' asChild>
