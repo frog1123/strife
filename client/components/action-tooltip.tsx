@@ -16,7 +16,7 @@ export const ActionTooltip: FC<ActionTooltipProps> = ({ label, children, side, a
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent side={side} align={align}>
-          <p className='font-semibold text-sm capitalize'>{label.toLocaleLowerCase()}</p>
+          <p className='font-semibold text-sm'>{label.toLocaleLowerCase()}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
