@@ -25,7 +25,7 @@ import { useRouter } from 'next/navigation';
 
 const roleIconMap = {
   GUEST: null,
-  MODERATOR: <ShieldCheck className='h-4 w-4 ml-2 text-emerald-500' />,
+  MODERATOR: <ShieldCheck className='h-4 w-4 ml-2 text-blue-500' />,
   ADMIN: <ShieldCheck className='h-4 w-4 ml-2 text-rose-500' />
 };
 
@@ -36,6 +36,26 @@ export const MembersModal: FC = () => {
 
   const isModalOpen = isOpen && type === 'members';
   const { server } = data as { server: ServerWithMembersWithProfiles };
+
+  const onKick = async (memberId: string) => {
+    try {
+      setLoadingId(memberId);
+      const url = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server?.id
+        }
+      });
+
+      const response = await axios.delete(url);
+      router.refresh();
+      onOpen('members', { server: response.data });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingId('');
+    }
+  };
 
   const onRoleChange = async (memberId: string, role: MemberRole) => {
     try {
@@ -102,7 +122,7 @@ export const MembersModal: FC = () => {
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onKick(m.id)}>
                         <Gavel className='h-4 w-4 mr-2' />
                         Kick
                       </DropdownMenuItem>
