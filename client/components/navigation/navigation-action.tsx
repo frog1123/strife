@@ -7,7 +7,6 @@ import { useModal } from '@/hooks/use-modal-store';
 
 export const NavigationAction: FC = () => {
   const { onOpen } = useModal();
-  const adata = useModal();
 
   return (
     <div>
