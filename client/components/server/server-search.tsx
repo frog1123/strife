@@ -1,7 +1,7 @@
 'use client';
 
 import { Command, Search } from 'lucide-react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 
 interface ServerSearchProps {
@@ -20,6 +20,23 @@ interface ServerSearchProps {
 
 const ServerSearch: FC<ServerSearchProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen(open => !open);
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <>
@@ -33,7 +50,7 @@ const ServerSearch: FC<ServerSearchProps> = ({ data }) => {
           K
         </kbd>
       </button>
-      <CommandDialog open onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder='Search all channels and members' />
         <CommandList>
           <CommandEmpty>No results found</CommandEmpty>
