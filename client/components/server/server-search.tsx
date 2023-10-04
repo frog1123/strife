@@ -3,6 +3,7 @@
 import { Command, Search } from 'lucide-react';
 import { FC, useEffect, useState } from 'react';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { useParams, useRouter } from 'next/navigation';
 
 interface ServerSearchProps {
   data: {
@@ -21,6 +22,8 @@ interface ServerSearchProps {
 const ServerSearch: FC<ServerSearchProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
+  const params = useParams();
 
   useEffect(() => {
     setIsMounted(true);
@@ -37,6 +40,13 @@ const ServerSearch: FC<ServerSearchProps> = ({ data }) => {
   }, []);
 
   if (!isMounted) return null;
+
+  const onClick = ({ id, type }: { id: string; type: 'channel' | 'member' }) => {
+    setOpen(false);
+
+    if (type === 'member') return router.push(`/servers/${params?.serverId}/conversations/${id}`);
+    if (type === 'channel') return router.push(`/servers/${params?.serverId}/channels/${id}`);
+  };
 
   return (
     <>
@@ -61,7 +71,7 @@ const ServerSearch: FC<ServerSearchProps> = ({ data }) => {
               <CommandGroup key={label} heading={label}>
                 {data?.map(({ id, icon, name }) => {
                   return (
-                    <CommandItem key={id}>
+                    <CommandItem onSelect={() => onClick({ id, type })} key={id}>
                       {icon}
                       <span>{name}</span>
                     </CommandItem>
